@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movie Review</string>
+    <string name="image">image</string>
+    <string name="movie_review"><u><b><i>Movie Review</i></b></u></string>
+</resources>
