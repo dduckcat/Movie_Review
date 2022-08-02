@@ -15,13 +15,7 @@ import com.example.moviereview.R
 import com.example.moviereview.databinding.ItemMovieBinding
 import com.example.moviereview.remotedatasource.data.Result
 
-class MovieAdapter(
-
-) : PagingDataAdapter<Result, MovieAdapter.MovieViewHolder>(DiffUtilCallBack) {
-
-//    private var mListMovie: MutableList<Result> = mutableListOf()
-//    private var listMovie: List<Result> = mListMovie
-
+class MovieAdapter : PagingDataAdapter<Result, MovieAdapter.MovieViewHolder>(DiffUtilCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

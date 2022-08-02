@@ -17,8 +17,6 @@ class ActivityRecycler : AppCompatActivity() {
     private var adapter = MovieAdapter()
     private val viewModel: RecyclerViewModel by viewModels()
 
-
-
     private var _binding: RecyclerActivityBinding? = null
     private val binding get() = _binding!!
 
@@ -30,7 +28,6 @@ class ActivityRecycler : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         viewModel.viewModelScope.launch {
-
             viewModel.getMovie().observe(this@ActivityRecycler){
                 adapter.submitData(lifecycle, it)
             }
@@ -56,32 +53,7 @@ class ActivityRecycler : AppCompatActivity() {
 
             }
         }
-
-
-        //progressBar
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading ||
-                loadState.append is LoadState.Loading)
-                binding.progressbar.isVisible = true
-            else {
-                binding.progressbar.isVisible = false
-                val errorState = when {
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error ->  loadState.prepend as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                errorState?.let {
-                    Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
-                }
-
-            }
-        }
-
     }
-
-
-
 
     override fun onDestroy() {
         super.onDestroy()
