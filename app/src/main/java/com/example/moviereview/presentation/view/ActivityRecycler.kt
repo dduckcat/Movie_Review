@@ -57,6 +57,27 @@ class ActivityRecycler : AppCompatActivity() {
             }
         }
 
+
+        //progressBar
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading ||
+                loadState.append is LoadState.Loading)
+                binding.progressbar.isVisible = true
+            else {
+                binding.progressbar.isVisible = false
+                val errorState = when {
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.prepend is LoadState.Error ->  loadState.prepend as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                errorState?.let {
+                    Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
+                }
+
+            }
+        }
+
     }
 
 
@@ -67,5 +88,7 @@ class ActivityRecycler : AppCompatActivity() {
         _binding = null
     }
 }
+
+
 
 
