@@ -12,6 +12,7 @@ import com.example.moviereview.presentation.adapter.MovieAdapter
 import com.example.moviereview.presentation.viewmodel.RecyclerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class ActivityRecycler : AppCompatActivity() {
     private var adapter = MovieAdapter()
@@ -28,7 +29,7 @@ class ActivityRecycler : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         viewModel.viewModelScope.launch {
-            viewModel.getMovie().observe(this@ActivityRecycler){
+            viewModel.getMovie().observe(this@ActivityRecycler) {
                 adapter.submitData(lifecycle, it)
             }
         }
@@ -37,13 +38,14 @@ class ActivityRecycler : AppCompatActivity() {
         //progressBar
         adapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading ||
-                loadState.append is LoadState.Loading)
+                loadState.append is LoadState.Loading
+            )
                 binding.progressbar.isVisible = true
             else {
                 binding.progressbar.isVisible = false
                 val errorState = when {
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error ->  loadState.prepend as LoadState.Error
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                     loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
                     else -> null
                 }
