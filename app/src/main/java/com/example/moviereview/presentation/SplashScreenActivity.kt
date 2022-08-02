@@ -1,5 +1,6 @@
 package com.example.moviereview.presentation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.os.Looper
 import com.example.moviereview.R
 import com.example.moviereview.presentation.view.ActivityRecycler
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, ActivityRecycler::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 1500)
     }
 }
