@@ -1,33 +1,32 @@
 package com.example.moviereview.presentation.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.moviereview.presentation.domain.RecyclerInteractor
-import com.example.moviereview.remotedatasource.data.Movie
+import com.example.moviereview.remotedatasource.data.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class RecyclerViewModel @Inject constructor(
-    private val recyclerInteractor: RecyclerInteractor
-): ViewModel() {
+    private val repository: RecyclerInteractor
+) : ViewModel() {
 
-    private val movieLiveData = MutableLiveData<Movie>()
+    private val movieLiveData = MutableLiveData<PagingData<Result>>()
 
-    fun getMovies(): MutableLiveData<Movie>{
-        viewModelScope.launch {
-            try {
-                movieLiveData.value = recyclerInteractor.getMovie()
-            }catch (e:Exception){
-                Log.e("qwert","${e.message}")
-            }
+    suspend fun getMovie(): LiveData<PagingData<Result>> {
 
-        }
-        return movieLiveData
+
+        val response = repository.getMovie().cachedIn(viewModelScope)
+        movieLiveData.value = response.value
+
+        return response
     }
+
 
 }

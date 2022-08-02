@@ -39,11 +39,16 @@ android {
 
 dependencies {
 
-    // add dependence of pagination to gradel script
-    implementation "androidx.paging:paging-runtime:3.1.1"
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    // add dependence of pagination to gradle script
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 
     //add fragment library
-    implementation 'androidx.fragment:fragment-ktx:1.5.0'
+    implementation 'androidx.fragment:fragment-ktx:1.5.1'
 
     //Hilt
     implementation "com.google.dagger:hilt-android:2.42"
