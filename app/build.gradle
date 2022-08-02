@@ -37,7 +37,11 @@ android {
     }
 }
 
+def key = "zEilsQCZU7dh2swf46cRI8dWprjCCiiF"
+
+
 dependencies {
+
 
     //Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
